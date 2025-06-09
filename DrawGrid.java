@@ -156,162 +156,72 @@ public class DrawGrid {
         
         //Marvel
 
-        public boolean  checkForWinner(int cc,int cr, Color c){
-            //search west and east
-            int xStart = cc;
-            int count = 1;
-            //check west
-            xStart--;
-            while(xStart>=0){
-                if(grid[cr][xStart].equals(c)){
-                    count++;
-                }else{
-                    break;
-                }
-                if(count==4)
-                    return true;
+        public boolean checkForWinner(int cc, int cr, Color c) {
+            int count;
 
-                xStart--;
-            }
-
-            //check east
-            xStart = cc;
-            xStart++;
-            while(xStart<grid[0].length){
-
-                if(grid[cr][xStart].equals(c)){
-
-                    count++;
-                }else{
-                    break;
-                }
-                if(count==4)
-                    return true;
-
-                xStart++;
-            }
-
-            /*
-             * More searches here
-             */
-
-            //check North
+            // Check horizontal (left to right)
             count = 1;
-            int yStart = cr;
-            yStart--;
-            while(yStart>0){
-                if(grid[yStart][cc].equals(c)){
-                    count++;
-                }else{
-                    break;
-                }
-                if(count==4)
-                    return true;
-
-                yStart--;
+            int x = cc - 1;
+            while (x >= 0 && grid[cr][x].equals(c)) {
+                count++;
+                x--;
             }
-
-            //check east
-            yStart = cr;
-            yStart++;
-            while(yStart<grid.length){
-
-                if(grid[yStart][cc].equals(c)){
-
-                    count++;
-                }else{
-                    break;
-                }
-                if(count==4)
-                    return true;
-
-                yStart++;
+            x = cc + 1;
+            while (x < grid[0].length && grid[cr][x].equals(c)) {
+                count++;
+                x++;
             }
-            /*
-             * More Searches
-             */
+            if (count >= 4) return true;
 
-            //check NorthWest
+            // Check vertical (top to bottom)
             count = 1;
-            yStart = cr;
-            xStart = cc;
-            xStart--;
-            yStart--;
-            while(yStart>0 && xStart>0){
-                if(grid[yStart][xStart].equals(c)){
-                    count++;
-                }else{
-                    break;
-                }
-                if(count==4)
-                    return true;
-
-                yStart--;
-                xStart--;
+            int y = cr - 1;
+            while (y >= 0 && grid[y][cc].equals(c)) {
+                count++;
+                y--;
             }
-
-            //check Southeast
-            yStart = cr;
-            yStart++;
-            xStart = cc;
-            xStart++;
-            while(yStart<grid.length && xStart<grid.length){
-
-                if(grid[yStart][xStart].equals(c)){
-
-                    count++;
-                }else{
-                    break;
-                }
-                if(count==4)
-                    return true;
-
-                yStart++;
-                xStart++;
+            y = cr + 1;
+            while (y < grid.length && grid[y][cc].equals(c)) {
+                count++;
+                y++;
             }
+            if (count >= 4) return true;
 
-            /*
-             * More Searches
-             */
-
-            //check southWest
+            // Check diagonal (top-left to bottom-right)
             count = 1;
-            yStart = cr;
-            xStart = cc;
-            xStart--;
-            yStart++;
-            while(yStart<grid.length && xStart>0){
-                if(grid[yStart][xStart].equals(c)){
-                    count++;
-                }else{
-                    break;
-                }
-                if(count==4)
-                    return true;
-
-                yStart++;
-                xStart--;
+            x = cc - 1;
+            y = cr - 1;
+            while (x >= 0 && y >= 0 && grid[y][x].equals(c)) {
+                count++;
+                x--;
+                y--;
             }
-
-            //check Northeast
-            yStart = cr;
-            yStart--;
-            xStart = cc;
-            xStart++;
-            while(yStart>0 && xStart<grid.length){
-
-                if(grid[yStart][xStart].equals(c)){
-
-                    count++;
-                }else{
-                    break;
-                }
-                if(count==4)
-                    return true;
-
-                yStart--;
-                xStart++;
+            x = cc + 1;
+            y = cr + 1;
+            while (x < grid[0].length && y < grid.length && grid[y][x].equals(c)) {
+                count++;
+                x++;
+                y++;
             }
+            if (count >= 4) return true;
+
+            // Check diagonal (bottom-left to top-right)
+            count = 1;
+            x = cc - 1;
+            y = cr + 1;
+            while (x >= 0 && y < grid.length && grid[y][x].equals(c)) {
+                count++;
+                x--;
+                y++;
+            }
+            x = cc + 1;
+            y = cr - 1;
+            while (x < grid[0].length && y >= 0 && grid[y][x].equals(c)) {
+                count++;
+                x++;
+                y--;
+            }
+            if (count >= 4) return true;
 
             return false;
         }
